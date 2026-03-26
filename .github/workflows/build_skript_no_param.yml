@@ -32,22 +32,22 @@ jobs:
         run: |
         
           # Erstelle Build-Verzeichnis
-          WORKDIR="$GITHUB_WORKSPACE/DisplayAdaptions"
+          WORKDIR="${{ github.workspace }}/DisplayAdaptions"
           mkdir -p "$WORKDIR"
           cd "$WORKDIR"
           
-          cp -v "$GITHUB_WORKSPACE/rebuild-esp32s3-linux-wifi.sh" .
-          cp -v "$GITHUB_WORKSPACE/"*.conf . 2>/dev/null || true
-          cp -v "$GITHUB_WORKSPACE/"sdkconfig.defaults.* . 2>/dev/null || true
-          cp -v "$GITHUB_WORKSPACE/kernel-config-spi.frag" . 2>/dev/null || true
-          cp -v "$GITHUB_WORKSPACE/rootfs_esp32s3_devkit_c1_8m_spi.config" . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/scripts/rebuild-esp32s3-linux-wifi.sh" .
+          cp -v "${{ github.workspace }}/"*.conf . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/"sdkconfig.defaults.* . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/kernel-config-spi.frag" . 2>/dev/null || true
+          # cp -v "${{ github.workspace }}/scripts/rootfs_esp32s3_devkit_c1_8m_spi.config" . 2>/dev/null || true
+          # cp -v "${{ github.workspace }}/scripts/S3_16M.conf" . 2>/dev/null || true
+          cp -v "${{ github.workspace }}/scripts/devkit-c1-8m.conf" . 2>/dev/null || true
           
           chmod +x rebuild-esp32s3-linux-wifi.sh
           echo "Build-Umgebung vorbereitet in $WORKDIR"
           ls -la
                    
-          # Mache Skript ausführbar
-          chmod +x rebuild-esp32s3-linux-wifi.sh
       
       - name: System-Abhängigkeiten prüfen
         run: |
@@ -60,14 +60,14 @@ jobs:
           
           echo "=== System-Info ==="
           uname -a
-          df -h /build/DisplayAdaptions
+          df -h $WORKDIR
       
       - name: Setze Build-Umgebungsvariablen
         run: |
           cd $WORKDIR
       
       - name: ESP32-S3 Linux Build ausführen
-        working-directory: ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions
+        working-directory: ${{ github.workspace }}/DisplayAdaptions
         timeout-minutes: 360
         run: |         
           # Führe Build-Skript aus
@@ -79,9 +79,9 @@ jobs:
         with:
           name: esp32s3-linux-images-${{ github.run_number }}
           path: |
-            ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions/build/build-buildroot-*/images/xipImage
-            ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions/build/build-buildroot-*/images/rootfs.cramfs
-            ${{ env.GITHUB_WORKSPACE }}/DisplayAdaptions/build/build-buildroot-*/images/etc.jffs2
+            ${{ github.workspace }}/DisplayAdaptions/build/build-buildroot-*/images/xipImage
+            ${{ github.workspace }}/DisplayAdaptions/build/build-buildroot-*/images/rootfs.cramfs
+            ${{ github.workspace }}/DisplayAdaptions/build/build-buildroot-*/images/etc.jffs2
           retention-days: 7
           if-no-files-found: error
       
