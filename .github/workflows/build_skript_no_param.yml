@@ -71,7 +71,7 @@ jobs:
         timeout-minutes: 360
         run: |         
           # Führe Build-Skript aus
-          ./rebuild-esp32s3-linux-wifi.sh
+          ./rebuild-esp32s3-linux-wifi.sh -c N16R8.conf
       
       - name: Upload Build-Artefakte
         if: success()

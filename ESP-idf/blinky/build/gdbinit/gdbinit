@@ -1,0 +1,2 @@
+source C:/ucLinux/ESP-idf/blinky/build/gdbinit/symbols
+source C:/ucLinux/ESP-idf/blinky/build/gdbinit/connect
