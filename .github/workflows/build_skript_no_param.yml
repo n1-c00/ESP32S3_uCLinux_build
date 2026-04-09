@@ -32,7 +32,7 @@ jobs:
         run: |
         
           # Erstelle Build-Verzeichnis
-          WORKDIR="${{ github.workspace }}/DisplayAdaptions"
+          WORKDIR="${{ github.workspace }}/BuildDir"
           mkdir -p "$WORKDIR"
           cd "$WORKDIR"
           
@@ -40,9 +40,9 @@ jobs:
           cp -v "${{ github.workspace }}/"*.conf . 2>/dev/null || true
           cp -v "${{ github.workspace }}/"sdkconfig.defaults.* . 2>/dev/null || true
           cp -v "${{ github.workspace }}/kernel-config-spi.frag" . 2>/dev/null || true
-          # cp -v "${{ github.workspace }}/scripts/rootfs_esp32s3_devkit_c1_8m_spi.config" . 2>/dev/null || true
-          # cp -v "${{ github.workspace }}/scripts/S3_16M.conf" . 2>/dev/null || true
-          cp -v "${{ github.workspace }}/scripts/devkit-c1-8m.conf" . 2>/dev/null || true
+          # cp -v "${{ github.workspace }}rootfs_esp32s3_devkit_c1_8m_spi.config" . 2>/dev/null || true
+          # cp -v "${{ github.workspace }}S3_16M.conf" . 2>/dev/null || true
+          cp -v "${{ github.workspace }}devkit-c1-8m.conf" . 2>/dev/null || true
           
           chmod +x rebuild-esp32s3-linux-wifi.sh
           echo "Build-Umgebung vorbereitet in $WORKDIR"
