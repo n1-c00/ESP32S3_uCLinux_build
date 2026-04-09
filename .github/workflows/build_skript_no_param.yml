@@ -67,7 +67,7 @@ jobs:
           cd $WORKDIR
       
       - name: ESP32-S3 Linux Build ausführen
-        working-directory: ${{ github.workspace }}/DisplayAdaptions
+        working-directory: ${{ github.workspace }}/BuildDir
         timeout-minutes: 360
         run: |         
           # Führe Build-Skript aus
@@ -79,9 +79,9 @@ jobs:
         with:
           name: esp32s3-linux-images-${{ github.run_number }}
           path: |
-            ${{ github.workspace }}/DisplayAdaptions/build/build-buildroot-*/images/xipImage
-            ${{ github.workspace }}/DisplayAdaptions/build/build-buildroot-*/images/rootfs.cramfs
-            ${{ github.workspace }}/DisplayAdaptions/build/build-buildroot-*/images/etc.jffs2
+            ${{ github.workspace }}/BuildDir/build/build-buildroot-*/images/xipImage
+            ${{ github.workspace }}/BuildDir/build/build-buildroot-*/images/rootfs.cramfs
+            ${{ github.workspace }}/BuildDir/build/build-buildroot-*/images/etc.jffs2
           retention-days: 7
           if-no-files-found: error
       
