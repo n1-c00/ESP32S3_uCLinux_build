@@ -136,8 +136,10 @@ if [ -n "$reconfigure_boot" ] ; then
 	idf.py menuconfig
 	cp sdkconfig $ESP_HOSTED_CONFIG
 fi
+
 idf.py build
-read -p 'ready to flash... press enter'
+
+#read -p 'ready to flash... press enter'
 #while ! idf.py $SET_BAUDRATE flash ; do
 #	read -p 'failure... press enter to try again'
 #done
